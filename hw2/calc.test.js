@@ -2,6 +2,22 @@ import { describe, expect, test } from 'vitest'
 import Calc from './calc'
 import { NonNumericInputError } from './error'
 
+describe('add operation', () => {
+  test('normal behaviors', () => {
+    expect(Calc.add(0, 0)).toBe(0)
+    expect(Calc.add(1, 0)).toBe(1)
+    expect(Calc.add(0, 1)).toBe(1)
+    expect(Calc.add(10, 5)).toBe(15)
+    expect(Calc.add(1, 10)).toBe(11)
+    expect(Calc.add(20000, 12345)).toBe(32345)
+  })
+  test('non-numeric inputs should throw the specific error', () => {
+    expect(() => Calc.add('a', 10)).toThrow(NonNumericInputError)
+    expect(() => Calc.add(10, 'b')).toThrow(NonNumericInputError)
+    expect(() => Calc.add('a', 'b')).toThrow(NonNumericInputError)
+  })
+})
+
 describe('subtract operation', () => {
   test('normal behaviors', () => {
     expect(Calc.subtract(0, 0)).toBe(0)
