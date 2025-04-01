@@ -4,15 +4,18 @@ class Calc {
   }
 
   static subtract(a, b) {
-    return null
+    return a - b
   }
 
   static multiply(a, b) {
-    return null
+    return a * b
   }
 
   static divide(a, b) {
-    return null
+    if (b === 0) {
+      return NaN
+    }
+    return a / b
   }
 }
 
