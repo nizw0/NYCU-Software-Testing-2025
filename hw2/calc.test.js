@@ -2,6 +2,35 @@ import { describe, expect, test } from 'vitest'
 import Calc from './calc'
 import { ExceedingSafeIntegerError, NonNumericInputError } from './errors'
 
+describe('add operation', () => {
+  test('non-numeric inputs should throw NonNumericInputError', () => {
+    expect(() => Calc.add('a', 1)).toThrow(NonNumericInputError)
+    expect(() => Calc.add(1, 'b')).toThrow(NonNumericInputError)
+    expect(() => Calc.add('a', 'b')).toThrow(NonNumericInputError)
+    expect(() => Calc.add({}, 1)).toThrow(NonNumericInputError)
+    expect(() => Calc.add(1, {})).toThrow(NonNumericInputError)
+    expect(() => Calc.add([], 1)).toThrow(NonNumericInputError)
+    expect(() => Calc.add(1, [])).toThrow(NonNumericInputError)
+  })
+
+  test('two integers add', () => {
+    expect(Calc.add(0, 0)).toBe(0)
+    expect(Calc.add(1, 0)).toBe(1)
+    expect(Calc.add(0, 1)).toBe(1)
+    expect(Calc.add(5, 10)).toBe(15)
+    expect(Calc.add(10, 5)).toBe(15)
+    expect(Calc.add(1, 10)).toBe(11)
+    expect(Calc.add(20000, 12345)).toBe(32345)
+  })
+
+  test('result should between Number.MIN_SAFE_INTEGER and Number.MAX_SAFE_INTEGER', () => {
+    expect(() => Calc.add(Number.MIN_SAFE_INTEGER, -1)).toThrow(ExceedingSafeIntegerError)
+    expect(() => Calc.add(-1, Number.MIN_SAFE_INTEGER)).toThrow(ExceedingSafeIntegerError)
+    expect(() => Calc.add(Number.MAX_SAFE_INTEGER, 10)).toThrow(ExceedingSafeIntegerError)
+    expect(() => Calc.add(10, Number.MAX_SAFE_INTEGER)).toThrow(ExceedingSafeIntegerError)
+  })
+})
+
 describe('subtract operation', () => {
   test('non-numeric inputs should throw NonNumericInputError', () => {
     expect(() => Calc.subtract('a', 1)).toThrow(NonNumericInputError)
