@@ -5,7 +5,13 @@ class Calc {
       throw new NonNumericInputError()
     }
 
-    return a + b
+    const result = a + b
+
+    if (!Number.isSafeInteger(result)) {
+      throw new ExceedingSafeIntegerError()
+    }
+
+    return result
   }
 
   static subtract(a, b) {
