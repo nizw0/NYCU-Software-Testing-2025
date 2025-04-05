@@ -1,3 +1,10 @@
+class ExceedingSafeIntegerError extends Error {
+  constructor(message = '') {
+    super(message)
+    this.name = 'ExceedingSafeIntegerError'
+  }
+}
+
 class NonNumericInputError extends Error {
   constructor(message = '') {
     super(message)
@@ -5,4 +12,4 @@ class NonNumericInputError extends Error {
   }
 }
 
-export { NonNumericInputError }
+export { ExceedingSafeIntegerError, NonNumericInputError }
