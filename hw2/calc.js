@@ -1,4 +1,4 @@
-import { NonNumericInputError } from './errors'
+import { ExceedingSafeIntegerError, NonNumericInputError } from './errors'
 class Calc {
   static add(a, b) {
     if (typeof a !== 'number' || typeof b !== 'number') {
@@ -13,7 +13,13 @@ class Calc {
       throw new NonNumericInputError()
     }
 
-    return a - b
+    const result = a - b
+
+    if (!Number.isSafeInteger(result)) {
+      throw new ExceedingSafeIntegerError()
+    }
+
+    return result
   }
 
   static multiply(a, b) {
@@ -21,7 +27,13 @@ class Calc {
       throw new NonNumericInputError()
     }
 
-    return a * b
+    const result = a * b
+
+    if (!Number.isSafeInteger(result)) {
+      throw new ExceedingSafeIntegerError()
+    }
+
+    return result
   }
 
   static divide(a, b) {
@@ -32,7 +44,13 @@ class Calc {
       return NaN
     }
 
-    return Math.round(a / b)
+    const result = Math.round(a / b)
+
+    if (!Number.isSafeInteger(result)) {
+      throw new ExceedingSafeIntegerError()
+    }
+
+    return result
   }
 }
 
