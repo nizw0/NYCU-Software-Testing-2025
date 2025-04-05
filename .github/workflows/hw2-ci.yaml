@@ -25,3 +25,23 @@ jobs:
         run: npm ci
       - name: Testing
         run: npm test
+
+  coverage:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./hw2
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: hw2/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Get coverage report
+        run: npm run coverage
